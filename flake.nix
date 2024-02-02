@@ -19,9 +19,6 @@
           name = "test";
           src = ./.;
           buildInputs = [tree cmake cudaPackages_12_3.cudatoolkit linuxPackages.nvidia_x11 makeWrapper];
-          preBuild = ''
-            export CUDA_PATH="${cudaPackages_12_3.cudatoolkit}"
-          '';
           installPhase = ''
             mkdir -p "$out/bin"
             cp -r ./bin/*/*/release/* "$out/bin"
@@ -32,6 +29,7 @@
             done
           '';
           dontUseCmakeConfigure = true;
+          CUDA_PATH = "${cudaPackages_12_3.cudatoolkit}";
           SMS = "86";
         };
       });
